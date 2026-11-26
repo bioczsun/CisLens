@@ -1,0 +1,18 @@
+# Reference direct dependencies. Python 3.11; choose a CPU/CUDA torch build first.
+pip==25.3
+setuptools==75.6.0
+wheel==0.45.1
+torch==2.5.1
+numpy==1.24.4
+pandas==2.2.3
+h5py==3.11.0
+scipy==1.10.1
+scikit-image==0.24.0
+einops==0.7.0
+pyBigWig==0.3.22
+pyfaidx==0.8.1.1
+pillow==10.4.0
+cooler==0.10.0
+pytest==7.4.0
+ruff==0.8.6
+build==1.2.2.post1

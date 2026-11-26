@@ -1,0 +1,22 @@
+[training]
+# Paths resolve relative to this file, not the current working directory.
+data_root = "../data"
+output_dir = "../runs/atac_seed1401"
+cells = ["IMR90", "GM12878", "K562"]
+signal_type = "atac"
+hic_type = "raw"
+batch_size = 3
+learning_rate = 0.0002
+epochs = 80
+patience = 20
+seed = 1401
+sampler_seed = 0
+epoch_mode = "concat"
+workers = 0
+device = "cuda"
+strict_metadata = false
+strict_determinism = false
+hash_inputs = false
+
+[model]
+# Defaults reproduce the current full-input network architecture.

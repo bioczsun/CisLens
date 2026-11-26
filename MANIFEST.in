@@ -1,0 +1,7 @@
+include README.md AGENTS.md CONTRIBUTING.md THIRD_PARTY_NOTICES.md
+recursive-include docs *.md *.json
+recursive-include examples *.toml *.tsv
+recursive-include requirements *.txt
+recursive-include LICENSES *.txt
+recursive-include tests *.py
+recursive-include .github *.yml

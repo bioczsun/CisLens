@@ -1,0 +1,20 @@
+[training]
+data_root = "../data"
+output_dir = "../runs/dnase_seed1401"
+cells = ["IMR90", "GM12878"]
+signal_type = "dnase"
+hic_type = "raw"
+batch_size = 2
+learning_rate = 0.0002
+epochs = 80
+patience = 20
+seed = 1401
+sampler_seed = 0
+epoch_mode = "concat"
+workers = 0
+device = "cuda"
+strict_metadata = false
+strict_determinism = false
+hash_inputs = false
+
+[model]

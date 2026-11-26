@@ -1,0 +1,13 @@
+{
+  "network_parameter_keys_equal": true,
+  "network_epi_max_abs_diff": 0.0,
+  "network_hic_max_abs_diff": 0.0,
+  "sei_encoder_max_abs_diff": 0.0,
+  "sei_encoder_parameter_keys_equal": true,
+  "real_legacy_checkpoint": {
+    "filename": "chromepi_multi_dnase_IMR90_GM12878_best_network.pth",
+    "parameter_tensor_shapes_equal": true,
+    "state_tensors": 158,
+    "note": "Strict keys/shapes only; no biological data or production inference."
+  }
+}

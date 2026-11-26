@@ -1,0 +1,16 @@
+target	path
+H3K27ac	../data/source_chip/H3K27ac.bigWig
+H3K4me1	../data/source_chip/H3K4me1.bigWig
+H3K4me2	../data/source_chip/H3K4me2.bigWig
+H3K4me3	../data/source_chip/H3K4me3.bigWig
+H3K9ac	../data/source_chip/H3K9ac.bigWig
+H3K36me3	../data/source_chip/H3K36me3.bigWig
+H2AFZ	../data/source_chip/H2AFZ.bigWig
+H3K27me3	../data/source_chip/H3K27me3.bigWig
+H3K9me3	../data/source_chip/H3K9me3.bigWig
+H4K20me1	../data/source_chip/H4K20me1.bigWig
+H3K79me2	../data/source_chip/H3K79me2.bigWig
+CHD1	../data/source_chip/CHD1.bigWig
+CTCF	../data/source_chip/CTCF.bigWig
+RAD21	../data/source_chip/RAD21.bigWig
+SMC3	../data/source_chip/SMC3.bigWig

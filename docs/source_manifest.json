@@ -1,0 +1,1682 @@
+[
+  {
+    "path": ".gitignore",
+    "sha256": "10f58050a2d12183ba9ee195d1c5eb85b0f680d032e86a05f2694d43b9f050a9",
+    "lines": 6,
+    "local_path_lines": [],
+    "definitions": [],
+    "parse_errors": []
+  },
+  {
+    "path": ".vscode/settings.json",
+    "sha256": "fb68765dabb197cac60376c803ac61894961b835ca8760705eb89a09e2177551",
+    "lines": 4,
+    "local_path_lines": [],
+    "definitions": [],
+    "parse_errors": []
+  },
+  {
+    "path": "Readme.md",
+    "sha256": "3097bd199db94553af2a9cd73d0cf7be80349b9cb98a364c8bee92bee32db85f",
+    "lines": 475,
+    "local_path_lines": [
+      5,
+      20,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      63,
+      64,
+      65,
+      66,
+      71,
+      72,
+      73,
+      74,
+      77,
+      78,
+      83,
+      89,
+      96,
+      123,
+      163,
+      226,
+      228,
+      230,
+      248,
+      273,
+      294,
+      295,
+      308,
+      310,
+      311,
+      319,
+      322,
+      323,
+      340,
+      361,
+      364,
+      366,
+      367,
+      395,
+      396,
+      397,
+      407,
+      408,
+      412,
+      416,
+      418,
+      420,
+      421,
+      422,
+      423,
+      438,
+      454,
+      455
+    ],
+    "definitions": [],
+    "parse_errors": []
+  },
+  {
+    "path": "bin/chromepi_data.py",
+    "sha256": "1faa61920d5e078d5f814e70f92e1d91ecfae620acacee590c63a4fa8fb6d5a2",
+    "lines": 440,
+    "local_path_lines": [],
+    "definitions": [
+      "interp_nan",
+      "shift_fix",
+      "validate_targets",
+      "filter_intervals",
+      "get_chr_intervals",
+      "validate_sequence_df",
+      "save_split_h5",
+      "CovFace",
+      "diag_to_mat",
+      "get",
+      "proc_centrotelo",
+      "process_bigwig",
+      "save_hic_to_h5",
+      "main"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "bin/cool2npy_ice.py",
+    "sha256": "5cb480a34af08122109455272d5db806e9081a64fc41c7667c88506812b64823",
+    "lines": 277,
+    "local_path_lines": [],
+    "definitions": [
+      "resolve_cooler_path",
+      "sanitize_vector",
+      "ice_normalize_matrix",
+      "build_expected_profiles",
+      "get_matrix_selector",
+      "should_fallback_to_raw",
+      "fetch_chrom_matrix",
+      "oe_normalize_diagonal",
+      "prepare_diagonal",
+      "compress_diagonals",
+      "chrom_output_name",
+      "export_chromosome",
+      "export_chromosome_from_cooler",
+      "main"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "bin/generate_hic_oe.py",
+    "sha256": "194a98b1457a1cfb565abbfc554cd6c01e8d2ecfd04d3b62a063068e331f3518",
+    "lines": 140,
+    "local_path_lines": [
+      128,
+      129
+    ],
+    "definitions": [
+      "build_window_band",
+      "extract_window",
+      "generate_cell",
+      "main"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "bin/get_bed_fromfasta.py",
+    "sha256": "80c3c8d23def4772b74733248301ff30a3bc0cf5c42453d237db0e7188625a7b",
+    "lines": 93,
+    "local_path_lines": [
+      11,
+      12
+    ],
+    "definitions": [
+      "parse_args",
+      "build_intervals",
+      "main"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "bin/get_sei_embedding.py",
+    "sha256": "5f48dfb4089ba4a57dd43d67c372614e3fc33a4443f8454de9cb87c161520c2d",
+    "lines": 518,
+    "local_path_lines": [
+      15,
+      16,
+      17,
+      18
+    ],
+    "definitions": [
+      "parse_args",
+      "setup_logging",
+      "resolve_device",
+      "require_existing_file",
+      "load_intervals",
+      "dna_1hot",
+      "SeiSequenceDataset",
+      "strip_checkpoint_prefix",
+      "load_sei_model",
+      "build_dataloader",
+      "infer_interval_embedding_batch",
+      "create_output_dataset",
+      "build_split_output_paths",
+      "flush_split_buffer",
+      "run",
+      "main"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "bin/inference.py",
+    "sha256": "f900c29a5226aa052f586c6a680062685398ddfa0aa780dd927544649a4e2ee1",
+    "lines": 525,
+    "local_path_lines": [
+      39,
+      40,
+      42,
+      45
+    ],
+    "definitions": [
+      "parse_args",
+      "setup_logging",
+      "require_file",
+      "resolve_device",
+      "load_sequences",
+      "embedding_path_for_split",
+      "ChromEPIInferenceDataset",
+      "_checkpoint_depth_configuration",
+      "build_model",
+      "resolve_inference_depth",
+      "warn_if_depth_is_clipped",
+      "write_interval_metadata",
+      "write_prediction_batch",
+      "run_inference",
+      "main"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "bin/inference_h5_to_cool.py",
+    "sha256": "e85bd4641669d6b3ba3e48c483a2f7e79ca682c8e1f723fd8cfaea4482b84461",
+    "lines": 492,
+    "local_path_lines": [
+      17
+    ],
+    "definitions": [
+      "parse_args",
+      "setup_logging",
+      "require_file",
+      "load_metadata",
+      "get_chrom_sizes",
+      "init_band_accumulators",
+      "load_track_names",
+      "parse_epi_tracks",
+      "init_epi_accumulators",
+      "accumulate_window",
+      "aggregate_hic",
+      "aggregate_epi",
+      "build_bins",
+      "build_pixels",
+      "resolve_epi_bigwig_dir",
+      "sanitize_track_name",
+      "write_epi_bigwigs",
+      "write_cool",
+      "main"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "bin/prepare_mouse_data.py",
+    "sha256": "10f766682f1f5518339b1160ed1269556820f909f99681ce91d5d8ff630ab70c",
+    "lines": 422,
+    "local_path_lines": [
+      57,
+      60
+    ],
+    "definitions": [
+      "parse_args",
+      "slug",
+      "normalize_stage",
+      "load_plan",
+      "validate_shared_inputs",
+      "link_shared",
+      "write_plan",
+      "bin_chip_track",
+      "write_supervision",
+      "prepare_chip",
+      "pairs_columns",
+      "prepare_hic",
+      "main"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "bin/prepare_mouse_dataset.py",
+    "sha256": "b2a91e791f5da908289dec08d11cff2cc83105f44b615a824a49cf3c2039c8cb",
+    "lines": 431,
+    "local_path_lines": [
+      341
+    ],
+    "definitions": [
+      "read_sequences",
+      "bed_signature",
+      "validate_embeddings",
+      "chip_sources",
+      "hic_sources",
+      "existing_cool",
+      "open_cool",
+      "chromosome_alias",
+      "atomic_split_files",
+      "write_row_metadata",
+      "read_bigwig_bins",
+      "build_chip",
+      "observed_cool_bins",
+      "read_cool_band",
+      "hic_window",
+      "validate_chip_files",
+      "build_hic",
+      "parse_args",
+      "main"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "config/mouse_hic.tsv",
+    "sha256": "cab7ef64a6fab58dbfa25ad6bf5173cf448ab3e2e3c0cd533c188dec6ecfc8bb",
+    "lines": 6,
+    "local_path_lines": [],
+    "definitions": [],
+    "parse_errors": []
+  },
+  {
+    "path": "model copy/blocks copy.py",
+    "sha256": "da7c9a087de5d486d2113b31ff5a9c260556ba481d43eac3f078f133a33e2ff8",
+    "lines": 416,
+    "local_path_lines": [
+      395
+    ],
+    "definitions": [
+      "exists",
+      "default",
+      "map_values",
+      "Residual",
+      "ConvBlock",
+      "RMSNorm",
+      "precompute_freqs_cis",
+      "reshape_for_broadcast",
+      "apply_rotary_emb",
+      "GroupedQueryAttention",
+      "repeat_kv",
+      "FeedForward",
+      "TransformerBlock",
+      "exponential_linspace_int",
+      "ResBlockDilated",
+      "UpResBlock",
+      "ChromEPI",
+      "Decoder"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model copy/blocks.py",
+    "sha256": "da7c9a087de5d486d2113b31ff5a9c260556ba481d43eac3f078f133a33e2ff8",
+    "lines": 416,
+    "local_path_lines": [
+      395
+    ],
+    "definitions": [
+      "exists",
+      "default",
+      "map_values",
+      "Residual",
+      "ConvBlock",
+      "RMSNorm",
+      "precompute_freqs_cis",
+      "reshape_for_broadcast",
+      "apply_rotary_emb",
+      "GroupedQueryAttention",
+      "repeat_kv",
+      "FeedForward",
+      "TransformerBlock",
+      "exponential_linspace_int",
+      "ResBlockDilated",
+      "UpResBlock",
+      "ChromEPI",
+      "Decoder"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model copy/blocks_alpha copy.py",
+    "sha256": "d42ec562963e61e8531505687de7287f93d332178eaae3a418780edbe961c466",
+    "lines": 628,
+    "local_path_lines": [],
+    "definitions": [
+      "exists",
+      "default",
+      "map_values",
+      "Residual",
+      "ConvBlock",
+      "RMSNorm",
+      "build_rope_cache",
+      "rotate_half",
+      "apply_rope",
+      "RoPE",
+      "MHABlock",
+      "FeedForward",
+      "AttentionBiasBlock",
+      "TransformerBlock",
+      "central_mask_features",
+      "relative_shift",
+      "SequenceToPairBlock",
+      "RowAttentionBlock",
+      "PairMLPBlock",
+      "PairUpdateBlock",
+      "ChromEPI"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model copy/blocks_alpha.py",
+    "sha256": "d0d38b21109f8d20ce4666905af302d120b90eb0d38c7f0ab3c64143a9b9f31c",
+    "lines": 563,
+    "local_path_lines": [],
+    "definitions": [
+      "exists",
+      "default",
+      "map_values",
+      "Residual",
+      "ConvBlock",
+      "RMSNorm",
+      "build_rope_cache",
+      "rotate_half",
+      "apply_rope",
+      "RoPE",
+      "MHABlock",
+      "FeedForward",
+      "AttentionBiasBlock",
+      "TransformerBlock",
+      "SequenceToPairBlock",
+      "RowAttentionBlock",
+      "PairMLPBlock",
+      "PairUpdateBlock",
+      "ChromEPI"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model copy/config.py",
+    "sha256": "08447f7d6c1b712ed84798d04665b6ba562022e6d59caaf78d482b7c21698e53",
+    "lines": 52,
+    "local_path_lines": [],
+    "definitions": [
+      "ModelArgs"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model copy/sei.py",
+    "sha256": "7490663593b22918bd671a495b014d70fde35abff8838490b992ca952bb5e373",
+    "lines": 256,
+    "local_path_lines": [],
+    "definitions": [
+      "bs",
+      "spline_factory",
+      "BSplineTransformation",
+      "BSplineConv1D",
+      "Sei",
+      "criterion",
+      "get_optimizer"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model copy/train.py",
+    "sha256": "55ed33afcee89a71f97f5d92085aadd918b94c53dab48b3eb6baa320282f9970",
+    "lines": 345,
+    "local_path_lines": [
+      45
+    ],
+    "definitions": [
+      "parse_arguments",
+      "set_seed",
+      "create_run_folder",
+      "save_hyperparameters",
+      "get_dataloaders",
+      "load_checkpoint",
+      "build_sei",
+      "extract_sei_embedding",
+      "train",
+      "evaluate",
+      "main"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model copy/train_emb copy.py",
+    "sha256": "fc67401afec33bee20647d19c27afb8fc11d3c9a15f9e5aad5093517001a6974",
+    "lines": 420,
+    "local_path_lines": [
+      45
+    ],
+    "definitions": [
+      "parse_arguments",
+      "set_seed",
+      "create_run_folder",
+      "save_hyperparameters",
+      "get_dataloaders",
+      "load_checkpoint",
+      "build_sei",
+      "extract_sei_embedding",
+      "align_embeddings",
+      "train",
+      "evaluate",
+      "main"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model copy/train_emb.py",
+    "sha256": "26e67388d61576a16244270278f85ac7dd8f38f3b9cd3dccc1f5e43bfe0f5904",
+    "lines": 422,
+    "local_path_lines": [
+      45
+    ],
+    "definitions": [
+      "parse_arguments",
+      "set_seed",
+      "create_run_folder",
+      "save_hyperparameters",
+      "get_dataloaders",
+      "load_checkpoint",
+      "build_sei",
+      "extract_sei_embedding",
+      "align_embeddings",
+      "train",
+      "evaluate",
+      "main"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model copy/utils_sc copy.py",
+    "sha256": "757210d0b320bd7cd29d939f95d6e4f132bd393d6806381689c4279590378170",
+    "lines": 351,
+    "local_path_lines": [
+      37,
+      92,
+      111
+    ],
+    "definitions": [
+      "Dataset",
+      "MeanPearsonCorrCoefPerChannel",
+      "chr_score",
+      "point_score",
+      "insulation_pearson",
+      "dna_1hot",
+      "EarlyStopping",
+      "LinearWarmupCosineAnnealingLR"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model copy/utils_sc.py",
+    "sha256": "e8cb4a48f257eb33c3e45ada1f968aa493547df90b88a9c408c36ea13e4abe2e",
+    "lines": 377,
+    "local_path_lines": [
+      50,
+      113,
+      132
+    ],
+    "definitions": [
+      "Dataset",
+      "MeanPearsonCorrCoefPerChannel",
+      "chr_score",
+      "point_score",
+      "insulation_pearson",
+      "dna_1hot",
+      "EarlyStopping",
+      "LinearWarmupCosineAnnealingLR"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model/chromepi_dataset.py",
+    "sha256": "2b81b7bcacaff9c9b40d0a19c2cedd2d77a53c2680da12a8b4ded5e61419519e",
+    "lines": 507,
+    "local_path_lines": [
+      149
+    ],
+    "definitions": [
+      "ChromEPIDataset",
+      "MeanPearsonCorrCoefPerChannel",
+      "chr_score",
+      "point_score",
+      "insulation_pearson",
+      "dna_1hot"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model/config.py",
+    "sha256": "e1a03ce9eff8329e30ce0a48d1f5e24c03d4028626ee26308b74ab6b4de263a9",
+    "lines": 108,
+    "local_path_lines": [],
+    "definitions": [
+      "set_seed",
+      "create_run_folder",
+      "save_hyperparameters",
+      "_timestamp_ymdhm",
+      "_resolve_log_file_path",
+      "setup_logging"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model/data.py",
+    "sha256": "213397b79091f6890ea4cacdd76839870e916026cd05a979cf135130f216e2a8",
+    "lines": 457,
+    "local_path_lines": [],
+    "definitions": [
+      "split_embedding_filename_candidates",
+      "resolve_embedding_path_for_split",
+      "load_h5_to_memory",
+      "load_h5_dataset_to_memory",
+      "MixedCellBatchSampler",
+      "parse_cells",
+      "_read_sequences_bed",
+      "supervision_filename",
+      "_resolve_cell_paths",
+      "resolve_singlecell_paths",
+      "_build_dataset",
+      "validate_dataset_targets",
+      "compute_dataset_depth_statistics",
+      "get_dataloaders",
+      "get_multicell_dataloaders",
+      "_default_split_embedding_paths",
+      "resolve_split_embedding_paths"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model/depth.py",
+    "sha256": "256720ae12566a23456d43dadb5bc4dbe4c78305cf66222fc26e3d39541c77b3",
+    "lines": 127,
+    "local_path_lines": [],
+    "definitions": [
+      "canonical_path",
+      "_metadata_candidates",
+      "_resolve_metadata_bigwig_path",
+      "_bigwig_signature",
+      "load_depth_metadata",
+      "depth_record_for_bigwig",
+      "summarize_log_depth"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model/layers.py",
+    "sha256": "1d47e25d4fd414e29457465eff39ab14b40fc2163cbcd57957367f22e82a9d5d",
+    "lines": 671,
+    "local_path_lines": [],
+    "definitions": [
+      "exists",
+      "default",
+      "map_values",
+      "ConvBlock",
+      "RMSNorm",
+      "build_rope_cache",
+      "rotate_half",
+      "apply_rope",
+      "RoPE",
+      "MHABlock",
+      "FeedForward",
+      "AttentionBiasBlock",
+      "TransformerBlock",
+      "central_mask_features",
+      "relative_shift",
+      "SequenceToPairBlock",
+      "RowAttentionBlock",
+      "PairMLPBlock",
+      "PairUpdateBlock",
+      "ChromEPI"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model/sei.py",
+    "sha256": "7490663593b22918bd671a495b014d70fde35abff8838490b992ca952bb5e373",
+    "lines": 256,
+    "local_path_lines": [],
+    "definitions": [
+      "bs",
+      "spline_factory",
+      "BSplineTransformation",
+      "BSplineConv1D",
+      "Sei",
+      "criterion",
+      "get_optimizer"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model/train.py",
+    "sha256": "84a8955b5c7d93e5813495ddf600523c0fb55c04f11b30029d682a37a8bdb320",
+    "lines": 214,
+    "local_path_lines": [
+      34
+    ],
+    "definitions": [
+      "parse_arguments",
+      "main"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model/trainer.py",
+    "sha256": "bb5f54335711dca563f91e2d497d45313cdb5458bf85e0be35cdea86b6ee2f60",
+    "lines": 285,
+    "local_path_lines": [],
+    "definitions": [
+      "checkpoint_input_mode",
+      "load_checkpoint",
+      "align_embeddings",
+      "extract_epi_input",
+      "unpack_precomputed_batch",
+      "masked_supervision_loss",
+      "observed_window_count",
+      "evaluate",
+      "train"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model/utils.py",
+    "sha256": "89b09384a616cb3b795ce11bb33ec373477d352a7cfa3ad5993b24007b173668",
+    "lines": 61,
+    "local_path_lines": [],
+    "definitions": [
+      "EarlyStopping"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model_old/blocks copy.py",
+    "sha256": "da7c9a087de5d486d2113b31ff5a9c260556ba481d43eac3f078f133a33e2ff8",
+    "lines": 416,
+    "local_path_lines": [
+      395
+    ],
+    "definitions": [
+      "exists",
+      "default",
+      "map_values",
+      "Residual",
+      "ConvBlock",
+      "RMSNorm",
+      "precompute_freqs_cis",
+      "reshape_for_broadcast",
+      "apply_rotary_emb",
+      "GroupedQueryAttention",
+      "repeat_kv",
+      "FeedForward",
+      "TransformerBlock",
+      "exponential_linspace_int",
+      "ResBlockDilated",
+      "UpResBlock",
+      "ChromEPI",
+      "Decoder"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model_old/blocks.py",
+    "sha256": "da7c9a087de5d486d2113b31ff5a9c260556ba481d43eac3f078f133a33e2ff8",
+    "lines": 416,
+    "local_path_lines": [
+      395
+    ],
+    "definitions": [
+      "exists",
+      "default",
+      "map_values",
+      "Residual",
+      "ConvBlock",
+      "RMSNorm",
+      "precompute_freqs_cis",
+      "reshape_for_broadcast",
+      "apply_rotary_emb",
+      "GroupedQueryAttention",
+      "repeat_kv",
+      "FeedForward",
+      "TransformerBlock",
+      "exponential_linspace_int",
+      "ResBlockDilated",
+      "UpResBlock",
+      "ChromEPI",
+      "Decoder"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model_old/blocks_alpha.py",
+    "sha256": "e2070975a8986c28dca84f842156b913bf4299c5d4c8c2ebde213af753c70dca",
+    "lines": 624,
+    "local_path_lines": [],
+    "definitions": [
+      "exists",
+      "default",
+      "map_values",
+      "Residual",
+      "ConvBlock",
+      "RMSNorm",
+      "build_rope_cache",
+      "rotate_half",
+      "apply_rope",
+      "RoPE",
+      "MHABlock",
+      "FeedForward",
+      "AttentionBiasBlock",
+      "TransformerBlock",
+      "central_mask_features",
+      "relative_shift",
+      "SequenceToPairBlock",
+      "RowAttentionBlock",
+      "PairMLPBlock",
+      "PairUpdateBlock",
+      "ChromEPI"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model_old/blocks_alpha_extent.py",
+    "sha256": "698cabbcf80c0882849f8ac670addcf024a31f3a54df176c2b42e0291ce18da1",
+    "lines": 610,
+    "local_path_lines": [],
+    "definitions": [
+      "exists",
+      "default",
+      "map_values",
+      "Residual",
+      "ConvBlock",
+      "RMSNorm",
+      "build_rope_cache_yarn",
+      "rotate_half",
+      "apply_rope",
+      "RoPE",
+      "MHABlock",
+      "FeedForward",
+      "AttentionBiasBlock",
+      "TransformerBlock",
+      "SequenceToPairBlock",
+      "RowAttentionBlock",
+      "PairMLPBlock",
+      "PairUpdateBlock",
+      "ChromEPI"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model_old/blocks_unet.py",
+    "sha256": "31a36c3e6d3f1499cd4fdf8c3e181a302f462b58508d189b71f3cd973c5d4784",
+    "lines": 508,
+    "local_path_lines": [],
+    "definitions": [
+      "exists",
+      "default",
+      "map_values",
+      "Residual",
+      "ConvBlock",
+      "RMSNorm",
+      "build_rope_cache_yarn",
+      "rotate_half",
+      "apply_rope",
+      "RoPE",
+      "MHABlock",
+      "FeedForward",
+      "TransformerBlock",
+      "ResBlockDilated",
+      "UpResBlock",
+      "ChromEPI",
+      "Decoder"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model_old/config.py",
+    "sha256": "08447f7d6c1b712ed84798d04665b6ba562022e6d59caaf78d482b7c21698e53",
+    "lines": 52,
+    "local_path_lines": [],
+    "definitions": [
+      "ModelArgs"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model_old/sei.py",
+    "sha256": "7490663593b22918bd671a495b014d70fde35abff8838490b992ca952bb5e373",
+    "lines": 256,
+    "local_path_lines": [],
+    "definitions": [
+      "bs",
+      "spline_factory",
+      "BSplineTransformation",
+      "BSplineConv1D",
+      "Sei",
+      "criterion",
+      "get_optimizer"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model_old/train.py",
+    "sha256": "55ed33afcee89a71f97f5d92085aadd918b94c53dab48b3eb6baa320282f9970",
+    "lines": 345,
+    "local_path_lines": [
+      45
+    ],
+    "definitions": [
+      "parse_arguments",
+      "set_seed",
+      "create_run_folder",
+      "save_hyperparameters",
+      "get_dataloaders",
+      "load_checkpoint",
+      "build_sei",
+      "extract_sei_embedding",
+      "train",
+      "evaluate",
+      "main"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model_old/train_emb copy.py",
+    "sha256": "fc67401afec33bee20647d19c27afb8fc11d3c9a15f9e5aad5093517001a6974",
+    "lines": 420,
+    "local_path_lines": [
+      45
+    ],
+    "definitions": [
+      "parse_arguments",
+      "set_seed",
+      "create_run_folder",
+      "save_hyperparameters",
+      "get_dataloaders",
+      "load_checkpoint",
+      "build_sei",
+      "extract_sei_embedding",
+      "align_embeddings",
+      "train",
+      "evaluate",
+      "main"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model_old/train_emb.py",
+    "sha256": "4b678e0fe1374ce8bf6e928e8378de4660a31d5879f0652ddd8e34907caa16d3",
+    "lines": 530,
+    "local_path_lines": [
+      50
+    ],
+    "definitions": [
+      "parse_arguments",
+      "_timestamp_ymdhm",
+      "_resolve_log_file_path",
+      "setup_logging",
+      "load_h5_to_memory",
+      "load_h5_dataset_to_memory",
+      "set_seed",
+      "create_run_folder",
+      "save_hyperparameters",
+      "get_dataloaders",
+      "load_checkpoint",
+      "build_sei",
+      "extract_sei_embedding",
+      "align_embeddings",
+      "train",
+      "evaluate",
+      "main"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model_old/utils_sc copy.py",
+    "sha256": "757210d0b320bd7cd29d939f95d6e4f132bd393d6806381689c4279590378170",
+    "lines": 351,
+    "local_path_lines": [
+      37,
+      92,
+      111
+    ],
+    "definitions": [
+      "Dataset",
+      "MeanPearsonCorrCoefPerChannel",
+      "chr_score",
+      "point_score",
+      "insulation_pearson",
+      "dna_1hot",
+      "EarlyStopping",
+      "LinearWarmupCosineAnnealingLR"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "model_old/utils_sc.py",
+    "sha256": "d854585a150fe06052e3663e06b8a1f1f9188b4a640ff2d7e639e81f1ba4241a",
+    "lines": 442,
+    "local_path_lines": [
+      88,
+      171,
+      193
+    ],
+    "definitions": [
+      "normalize_fun",
+      "Dataset",
+      "MeanPearsonCorrCoefPerChannel",
+      "chr_score",
+      "point_score",
+      "insulation_pearson",
+      "dna_1hot",
+      "EarlyStopping",
+      "LinearWarmupCosineAnnealingLR"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "script/convert_humanbrain_scatac_h5_to_cool_bw.sh",
+    "sha256": "c951ce1d6268d782cc015192795f4fe1b31008e857407b89ba064b8d2f415825",
+    "lines": 63,
+    "local_path_lines": [
+      4,
+      5,
+      8,
+      10
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/convert_mouse_CHARM_scatac_h5_to_cool_bw.sh",
+    "sha256": "93c3013defbacd58566fe852e1280a2d43e701ed0c3e1f0f761c522e30e6547e",
+    "lines": 65,
+    "local_path_lines": [
+      6,
+      7,
+      9
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/convert_mouse_atac_h5_to_cool_bw.sh",
+    "sha256": "93e5520856220ec89e22beb5120bf3ad811ed05674932608f4d98e2189a51873",
+    "lines": 66,
+    "local_path_lines": [
+      6,
+      7,
+      9,
+      10
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/convert_mouse_dnase_h5_to_cool_bw.sh",
+    "sha256": "5e27785f09595bfe15173879a6a015c22c4c4e3e5a57d8b10ef844b53c9e9207",
+    "lines": 65,
+    "local_path_lines": [
+      6,
+      7,
+      9
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/convert_pbmc_scatac_h5_to_cool_bw.sh",
+    "sha256": "5690072165865ddad0cce81f6943693611d935cf5518d7923fb1d85b9a37679f",
+    "lines": 63,
+    "local_path_lines": [
+      4,
+      5,
+      8,
+      10
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/convert_six_cell_type_atac_h5_to_cool_bw.sh",
+    "sha256": "65d96bd6ce4cca314423c4b326969e42a83f099e78815d9134d8cd0e1a0991b8",
+    "lines": 69,
+    "local_path_lines": [
+      4,
+      5,
+      8,
+      9,
+      10
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/convert_six_cell_type_rna_h5_to_cool_bw.sh",
+    "sha256": "569dff80b4f20b9fc4705557c6e8b838bb9be7e1273a61ad37dcb81de649c1d1",
+    "lines": 69,
+    "local_path_lines": [
+      4,
+      5,
+      8,
+      9,
+      10
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/convert_six_cell_type_scatac_h5_to_cool_bw.sh",
+    "sha256": "ba2b457b46038300df3fa53d0fe41ed052c3266530113f43b9763c897f291bca",
+    "lines": 79,
+    "local_path_lines": [
+      4,
+      5,
+      8,
+      11
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/convert_six_cell_type_scrna_h5_to_cool_bw.sh",
+    "sha256": "0f27988afe8399d20d0d27d4ba3faf83a89f2d5b30d4be3e5ae601cf38c70a2d",
+    "lines": 77,
+    "local_path_lines": [
+      4,
+      5,
+      8,
+      12
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/generate_mouse_sei_embedding.sh",
+    "sha256": "8af3acc61747d3ea69f99a72db2a2d3c4f08695e63c38b09647a249ffdd6982b",
+    "lines": 67,
+    "local_path_lines": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/inference_WCT11_atac.sh",
+    "sha256": "38b2aa50684c048832f769824e591ff91ed3b5837e5c9a2a447264f63b9312b3",
+    "lines": 91,
+    "local_path_lines": [
+      4,
+      5,
+      9,
+      11,
+      12,
+      13,
+      14
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/inference_humanbrain_scatac.sh",
+    "sha256": "9fea3ddd6b766e9d112bae7ed93825e1e9f5ec63099766c03d11b0d8472bceea",
+    "lines": 106,
+    "local_path_lines": [
+      5,
+      7,
+      9,
+      10,
+      11,
+      12,
+      15
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/inference_mouse_CHARM_scatac.sh",
+    "sha256": "d2a346b1ad8acf3b353886a0838373593f79bf3020d29d7a8ecf1c0f08d7e6a5",
+    "lines": 214,
+    "local_path_lines": [
+      6,
+      7,
+      9,
+      10,
+      11
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/inference_mouse_atac.sh",
+    "sha256": "a4eac723ba2b7e0c02e6550c36295c4e072b380fdd2a65127d429b083bac992e",
+    "lines": 64,
+    "local_path_lines": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/inference_mouse_dnase.sh",
+    "sha256": "423068e3cd2ef5d8b60629b6107704dc6a909361f7459e7eab83b096193dd807",
+    "lines": 92,
+    "local_path_lines": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/inference_pbmc_scatac.sh",
+    "sha256": "c13257e09b665038ba78a0eb5361e3d97f8a132994433e5e9f070762810001d3",
+    "lines": 80,
+    "local_path_lines": [
+      5,
+      7,
+      9,
+      10,
+      11,
+      12,
+      17
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/inference_six_cell_type_atac.sh",
+    "sha256": "2fcd839060641a720112a7360d3a8050621331f79a8c06801425e6617ff71924",
+    "lines": 32,
+    "local_path_lines": [
+      1,
+      3,
+      5,
+      6,
+      7,
+      8,
+      23
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/inference_six_cell_type_rna.sh",
+    "sha256": "156d8741d4321c4e8c503958c497da63a3b325828374d58be7fb13f1d620fdf6",
+    "lines": 32,
+    "local_path_lines": [
+      1,
+      3,
+      5,
+      6,
+      7,
+      8,
+      23
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/inference_six_cell_type_scatac.sh",
+    "sha256": "673bb14f7a03183603e31926549d5ec8b8f53acb8e74b56ddc0210dcc7af6589",
+    "lines": 48,
+    "local_path_lines": [
+      3,
+      5,
+      7,
+      8,
+      9,
+      10,
+      28
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/inference_six_cell_type_scrna.sh",
+    "sha256": "8ec089eda47033760879ff74f4dec07bf3e45a3d40915cfe8b5485b73664be61",
+    "lines": 45,
+    "local_path_lines": [
+      3,
+      5,
+      7,
+      8,
+      9,
+      10,
+      27
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/prepare_mouse_dataset.sh",
+    "sha256": "d584a2cf864d7733b1b8ebcd8037df4a05352565b5d7397239e0d11ff06ac620",
+    "lines": 9,
+    "local_path_lines": [
+      5,
+      6
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/process_scatac.ipynb",
+    "sha256": "31fe08de51fc13623d0088a35f064537e24268f24dc56bfadb1f8ead3d8ea85e",
+    "lines": 4181,
+    "local_path_lines": [
+      178,
+      188,
+      282,
+      527,
+      542,
+      557,
+      572,
+      587,
+      617,
+      632,
+      647,
+      662,
+      677,
+      725,
+      726,
+      727,
+      728,
+      729,
+      731,
+      732,
+      733,
+      734,
+      735,
+      751,
+      769,
+      780,
+      793,
+      864,
+      1106,
+      1121,
+      1136,
+      1151,
+      1166,
+      1196,
+      1211,
+      1226,
+      1241,
+      1256,
+      1304,
+      1305,
+      1306,
+      1307,
+      1308,
+      1310,
+      1311,
+      1312,
+      1313,
+      1314,
+      1330,
+      1348,
+      1359,
+      1372,
+      1443,
+      1447,
+      1680,
+      1695,
+      1710,
+      1725,
+      1740,
+      1770,
+      1785,
+      1800,
+      1815,
+      1830,
+      1878,
+      1879,
+      1880,
+      1881,
+      1882,
+      1884,
+      1885,
+      1886,
+      1887,
+      1888,
+      1904,
+      1922,
+      1933,
+      1946,
+      2000,
+      2004,
+      2221,
+      2236,
+      2251,
+      2266,
+      2281,
+      2311,
+      2326,
+      2341,
+      2356,
+      2371,
+      2419,
+      2420,
+      2421,
+      2422,
+      2423,
+      2425,
+      2426,
+      2427,
+      2428,
+      2429,
+      2446,
+      2464,
+      2474,
+      2498,
+      2510,
+      2522,
+      2534,
+      2552,
+      2564,
+      2566,
+      2588,
+      2793,
+      2808,
+      2823,
+      2838,
+      2853,
+      2883,
+      2898,
+      2913,
+      2928,
+      2943,
+      2991,
+      2992,
+      2993,
+      2994,
+      2995,
+      2997,
+      2998,
+      2999,
+      3000,
+      3001,
+      3017,
+      3035,
+      3044,
+      3096,
+      3439,
+      3528,
+      3540,
+      3552,
+      3564,
+      3576,
+      3588,
+      3600,
+      3612,
+      3624,
+      3636,
+      3648,
+      3660,
+      3672,
+      3684,
+      3696,
+      3708,
+      3720,
+      3732,
+      3744,
+      3815,
+      3816,
+      3817,
+      3818,
+      3819,
+      3820,
+      3821,
+      3822,
+      3823,
+      3824,
+      3825,
+      3826,
+      3827,
+      3828,
+      3829,
+      3830,
+      3831,
+      3832,
+      3833,
+      3845,
+      3865,
+      3904
+    ],
+    "definitions": [
+      "_fragment_metadata",
+      "export_pseudobulk_depth_series",
+      "export_grouped_coverage_with_metadata",
+      "get_length"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "script/run_loop_benchmark.sh",
+    "sha256": "7f5af7f9552b1fee9ec50cf7b5aee51721e32fa146d9796a6355505e56bf3319",
+    "lines": 80,
+    "local_path_lines": [
+      7,
+      8,
+      10,
+      11,
+      12
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/train_bulk_dnase.sh",
+    "sha256": "bc29fadf1654a7d79af3cc3a8c99a23a9d67b7a0a85254ac6a53360b1b84906e",
+    "lines": 88,
+    "local_path_lines": [
+      6,
+      7,
+      8
+    ],
+    "definitions": [],
+    "parse_errors": [],
+    "shell_syntax": 0,
+    "shell_error": "bash: warning: setlocale: LC_ALL: cannot change locale (C.UTF-8)\n"
+  },
+  {
+    "path": "script/vis_model_predict.ipynb",
+    "sha256": "b4f591c24021b650a7fc8e76a942dc1313ecd7fadeb104d93b15ce94891a18db",
+    "lines": 483,
+    "local_path_lines": [
+      44,
+      60,
+      73,
+      92,
+      105,
+      124,
+      213,
+      214,
+      215,
+      265,
+      266,
+      268,
+      269,
+      270,
+      272,
+      273,
+      288,
+      289,
+      290,
+      291,
+      292,
+      458
+    ],
+    "definitions": [
+      "preprocess_default",
+      "load_region",
+      "load_data_default",
+      "get_data_at_interval",
+      "load_hic_mat",
+      "normalize_fun"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "tests/test_mouse_dataset.py",
+    "sha256": "7a91f6e1162dbe48ec6c8aa5ca89da2a74a3e0401a802b4cd7abca37a57f7596",
+    "lines": 401,
+    "local_path_lines": [],
+    "definitions": [
+      "run_prepare",
+      "inputs",
+      "generated",
+      "test_dry_run_writes_nothing",
+      "test_channel_order_masks_zero_and_row_order",
+      "test_hic_tiles_aliases_and_invalid_bins",
+      "test_hic_keeps_local_zeros_for_nonlocal_covered_bins",
+      "test_training_loaders_without_atac",
+      "test_hic_only_update_reuses_chip",
+      "test_full_loader_accepts_legacy_h5_and_bigwig_extension",
+      "test_masked_loss_normalizes_per_sample_and_has_no_missing_gradients",
+      "test_pearson_ignores_unobserved_channels",
+      "test_sei_model_accepts_signal_placeholder",
+      "SyntheticSupervisionModel",
+      "supervision_sample",
+      "test_validation_weights_observed_samples_per_task",
+      "test_validation_without_observed_task_returns_nan",
+      "test_training_skips_unobserved_batches_without_optimizer_steps",
+      "test_training_rejects_epochs_without_supervision"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "tests/test_target_validation.py",
+    "sha256": "a85926bdec816bbd3f7ffc13383c3034d29c5893ff5232df7419a7e25ebc6033",
+    "lines": 138,
+    "local_path_lines": [],
+    "definitions": [
+      "target_dataset",
+      "test_same_channel_count_does_not_allow_different_channel_orders",
+      "test_legacy_targets_still_check_dimensions_and_allow_known_metadata",
+      "SmallInferenceModel",
+      "test_checkpoint_keeps_channel_names_and_rejects_semantic_mismatch",
+      "test_inference_restores_checkpoint_mode_and_exports_names"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "tmp/test_infer.ipynb",
+    "sha256": "b965c57b584861cc9eb0c7074ae8e70fa486046229f92b7dc4dbc45adbd5aa8c",
+    "lines": 420,
+    "local_path_lines": [
+      51,
+      52,
+      54,
+      55,
+      233,
+      234,
+      236,
+      237,
+      374
+    ],
+    "definitions": [
+      "fetch_mat",
+      "compute_corr",
+      "fetch_mat",
+      "compute_corr"
+    ],
+    "parse_errors": []
+  },
+  {
+    "path": "tmp/tmp.ipynb",
+    "sha256": "896a4a52ac44b5ba15708753682607fd5d95e3d43d7b4e52be44c3bdcd9a65b1",
+    "lines": 350,
+    "local_path_lines": [
+      21,
+      73,
+      83,
+      172,
+      298
+    ],
+    "definitions": [],
+    "parse_errors": []
+  }
+]
