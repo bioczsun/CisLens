@@ -1,18 +1,15 @@
-# Source review and migration audit
+# Implementation provenance and compatibility
 
-Scope: 74 non-cache source/config/notebook files in the supplied ChromEPI
-working tree. Original files were frozen by SHA-256 before restructuring.
-`source_manifest.json` records every path, line count, digest, top-level
-definitions, hardcoded-local-path line numbers and syntax-check outcome.
+The source review covers 74 ChromEPI source, configuration and notebook files.
+The [source manifest](source_manifest.json) records paths, SHA-256 checksums,
+top-level definitions, machine-specific path references and syntax results.
 
-Every Python module and notebook code cell was parsed; every shell file was
-checked with `bash -n`. All passed syntax checks. Syntax checks do not establish
-runtime correctness of excluded historical experiments. Active training,
-network, dataset, checkpoint and preparation paths received detailed numerical
-and interface review; excluded duplicates were compared structurally and are
-not distributed as supported runtime paths.
+Python modules and notebook code cells passed syntax parsing, and shell
+scripts passed `bash -n`. The active training, network, dataset, checkpoint
+and data preparation components received numerical and interface review.
+Review of archived components was limited to static analysis.
 
-## Findings and decisions
+## Implementation conventions
 
 1. Machine-specific default data/genome/interpreter/checkpoint paths were removed.
    All input locations are explicit CLI/TOML values.
@@ -41,24 +38,22 @@ not distributed as supported runtime paths.
     worker-local and explicitly closed. Preflight checks signal chromosome bounds.
 12. Missing observations stay NaN; finite zeros are retained. Empty batches do not
     update model/optimizer; validation weights each task by observed windows.
-13. Broad warning suppression is removed. Nonfinite losses or predictions stop
-    with diagnostic errors rather than creating misleading completed artifacts.
+13. The runtime reports diagnostic errors for nonfinite losses and predictions.
 14. Run reuse is refused. Checkpoints/predictions are staged and atomically
     published; a failed prediction does not overwrite an existing complete output.
-15. Reproducibility records include seeds, model/config, software/hardware,
-    input metadata and optional full input hashes. No cross-hardware bitwise or
-    manuscript-performance guarantee is inferred from CPU smoke tests.
-16. RNA, ablation, depth conditioning, notebooks and downstream export/analysis
-    are excluded as explicitly requested. The source tree remains unchanged.
-17. Source launchers automatically used DataParallel for multiple visible GPUs.
-    The new portable default uses one selected device; batch/device changes must
-    be treated as experiment changes, not assumed equivalent reproduction.
-18. Upstream SEI license is academic/research-use only and retained separately.
-    No original-contribution license, author list or paper DOI is invented.
-19. Fresh installation exposed old pip metadata parsing and native wheel/glibc
-    incompatibilities. Pin the installer/build tools, use read-only pure-Python
-    indexed FASTA access instead of an unnecessary HTSlib binding, pin a compatible
-    Pillow wheel and archive the complete resolved CPU environment.
+15. Reproducibility records include seeds, model configuration, software and
+    hardware details, input metadata and optional full input checksums.
+16. The supported runtime covers ATAC-seq and DNase-seq input preparation,
+    training and inference. RNA inputs, ablation and depth-conditioned models,
+    and downstream export and analysis are documented as historical components.
+17. Historical training launchers used DataParallel when multiple GPUs were
+    visible. The current trainer uses one selected device. Record the device
+    configuration and effective batch size for each experiment.
+18. The SEI-derived encoder retains the academic and research-use terms of the
+    [upstream license](../LICENSES/SEI.txt).
+19. The reference environment pins installation and build tools, uses pyfaidx
+    for indexed FASTA access and specifies a compatible Pillow wheel for the
+    tested Linux environment.
 
 ## Exact duplicate files
 
@@ -100,7 +95,7 @@ not distributed as supported runtime paths.
 | `model/chromepi_dataset.py` | data.py/schema.py: require precomputed embeddings; remove hardcoded FASTA/augmentation fallback; keep finite masks and accessibility sampling. |
 | `model/config.py` | runtime.py/config.py: consolidate seeding, provenance and run paths; refuse run reuse. |
 | `model/data.py` | sampling.py/data.py: preserve sampler algorithm; unify shape/coordinate/channel validation and configurable workers. |
-| `model/depth.py` | Excluded: sequencing-depth conditioning is an experimental extension outside the requested ATAC/DNase main workflow. |
+| `model/depth.py` | Archived sequencing-depth conditioning for the experimental model. |
 | `model/layers.py` | network.py: retain full-input operations and parameter names; remove dormant ablation/depth branches and format with AST. |
 | `model/sei.py` | sei.py: retain the convolutional embedding path; omit unused classifier/spline and SEI training utilities. |
 | `model/train.py` | train.py/config.py/cli.py: replace local paths and broad warning suppression with strict TOML and explicit inputs. |

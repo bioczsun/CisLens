@@ -1,28 +1,21 @@
 # CisLens
 
-CisLens combines sequence-derived SEI embeddings with ATAC-seq or DNase-seq
-accessibility signals to jointly predict epigenomic tracks and local Hi-C maps.
-This repository contains training, inference, and the input preparation needed
-by those workflows. RNA inputs, ablation experiments, loop calling, plotting,
-and other downstream analyses are outside this release.
+CisLens integrates sequence-derived SEI embeddings with chromatin accessibility
+profiles to predict epigenomic tracks and local Hi-C contact maps. This
+repository provides data preparation, model training and inference for ATAC-seq
+and DNase-seq inputs.
 
-The code was reorganized from ChromEPI without changing its full-input network
-computations or state-dict parameter names. See [the audit](docs/source_audit.md)
-for file-by-file decisions and intentional engineering differences.
+The synthetic workflow requires no external datasets or checkpoints.
+Study-specific workflows require the reference assembly, original data split,
+prepared inputs and appropriate model weights. See
+[software and data availability](docs/publication.md) and
+[validation](docs/validation.md).
 
-**Release status:** the synthetic CPU workflow is runnable without external
-data or weights. Full-scale experiments require the reference genome, original
-data splits, supervision, and SEI/CisLens weights. These assets and a manuscript
-DOI have not been bundled or assigned download URLs. This code release alone
-does not reproduce unpublished manuscript numbers. See
-[publication requirements](docs/publication.md) and [validation](docs/validation.md).
+## 1. Installation
 
-## 1. Install
-
-The reference environment is Linux x86-64 and Python 3.11. Python 3.12+ is
-intentionally excluded because the reference NumPy/SciPy versions predate it.
-Use a separate environment; do not replace packages in an existing research
-environment. Commands below assume a downloaded/cloned repository named CisLens.
+The reference environment is Linux x86-64 with Python 3.11. Run the following
+commands from a checkout named `CisLens` to install the package in a virtual
+environment.
 
 ```bash
 cd CisLens
@@ -36,46 +29,36 @@ cislens --version
 cislens doctor
 ```
 
-For GPU work, replace both CPU PyTorch and package-install commands above with
-the appropriate build and direct-constraint installation from
-the [official PyTorch 2.5.1 installation instructions](https://pytorch.org/get-started/previous-versions/#v251).
-For example, CUDA 12.4 wheels use:
+For GPU execution, use the PyTorch build compatible with the installed NVIDIA
+driver and install CisLens with the direct dependency constraints. The commands
+below use CUDA 12.4. See the
+[PyTorch 2.5.1 installation instructions](https://pytorch.org/get-started/previous-versions/#v251).
 
 ```bash
 python -m pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cu124
 python -m pip install --prefer-binary -c requirements/constraints-py311.txt -e ".[prepare,dev]"
 ```
 
-Install only the package for inference/training with already prepared inputs:
-`python -m pip install -c requirements/lock-linux-py311-cpu.txt -e .` on CPU;
-use the direct constraints instead for CUDA.
-The `prepare` extra adds pyfaidx and cooler; the `dev` extra adds pytest and
-packaging/lint tools. No optional analysis packages, Selene, SnapATAC2,
-torchvision, or torchmetrics are needed.
+Training and inference with prepared inputs require the base package. The
+`prepare` extra installs pyfaidx and Cooler for input preparation. The `dev`
+extra installs testing, linting and build tools.
 
-`python -m cislens ...` is equivalent to `cislens ...` after installation.
-`requirements/constraints-py311.txt` pins the direct numerical dependencies.
-It is not a platform-independent lock file; retain `run.json` and the resolved
-environment for each published experiment.
+`python -m cislens ...` is equivalent to `cislens ...` after installation. The
+CPU lock file specifies the complete reference CPU environment. CUDA installations
+use the direct constraints in `requirements/constraints-py311.txt`. Record the
+resolved environment and `run.json` with each experiment.
 
-The default CPU commands use `requirements/lock-linux-py311-cpu.txt` **after**
-installing CPU PyTorch. This file pins the resolved transitive dependencies as
-well. Do not use the CPU lock
-with a CUDA PyTorch build. The FASTA reader is pure Python (pyfaidx), avoiding
-an unnecessary HTSlib build requirement. Pillow is pinned to a compatible wheel
-instead of allowing future versions to trigger native compilation on old glibc.
-
-## 2. Verify installation before using real data
+## 2. Installation verification
 
 ```bash
 python -m pytest -q
 cislens smoke --output-dir smoke-output
 ```
 
-The smoke command creates synthetic bigWig/H5 inputs, trains a **real reduced
-CisLens network** twice on CPU, checks exact parameter equality, loads the best
-checkpoint, and writes predictions. No pretrained weights or downloads are
-required. It produces:
+The smoke test creates synthetic bigWig and HDF5 inputs, trains a reduced
+CisLens model twice on CPU, and verifies exact equality of the resulting model
+parameters. It then reloads a checkpoint and writes predictions. The output
+directory contains the following files.
 
 ```text
 smoke-output/
@@ -86,11 +69,11 @@ smoke-output/
   smoke_result.json
 ```
 
-Use a fresh output directory for every smoke run. Its reduced geometry and
-synthetic signals test software behavior, not biological accuracy or production
-memory requirements. The tests exercise both ATAC and DNase workflows.
+Specify a new output directory for each run. The test suite covers ATAC-seq and
+DNase-seq training and inference with synthetic inputs. See the
+[validation record](docs/validation.md) for the scope of the tests.
 
-## 3. Input contract
+## 3. Input data
 
 For multiple cells/tissues, arrange prepared data as:
 
@@ -133,10 +116,10 @@ chr15	0	2097152	test
 The separators above are actual tabs in real files. Coordinates are zero-based,
 half-open. Default windows are 2,097,152 bp, comprising 1,024 bins of 2,048 bp.
 Starts must align to 2,048 bp. A chromosome may appear in only one split.
-Rows may be interleaved across splits; order **within each split** must match
-its H5 files. All cells sharing DNA embeddings must use the same BED order and
-split assignments. Never shuffle BED independently after preparing embeddings.
-Do not mix genome assemblies or chromosome naming conventions across inputs.
+Rows may be interleaved across splits. Within each split, the BED row order
+must match the corresponding HDF5 datasets. Cells that share DNA embeddings
+require identical BED row order and split assignments. All inputs must use a
+consistent genome assembly and chromosome naming convention.
 
 | File / dataset | Default shape | Meaning |
 | --- | --- | --- |
@@ -153,11 +136,11 @@ H3K27ac H3K4me1 H3K4me2 H3K4me3 H3K9ac H3K36me3 H2AFZ H3K27me3
 H3K9me3 H4K20me1 H3K79me2 CHD1 CTCF RAD21 SMC3
 ```
 
-Missing labels remain **NaN**; recorded zero values remain supervised zeros.
-Never fill missing labels using another tissue. Losses average valid elements
-within a window and then average supervised windows, independently for ChIP
-and Hi-C. Entirely unsupervised batches are skipped. An epoch with no
-supervision, or a validation set with neither task observed, stops explicitly.
+Missing labels are encoded as NaN. Observed zeros contribute to the loss.
+Losses are averaged over valid elements within each window and then over
+supervised windows, independently for ChIP and Hi-C. Batches without supervision
+are skipped. Training requires at least one supervised batch per epoch and
+observed labels for at least one task in the validation set.
 
 `strict_metadata = true` requires coordinates and channel names and is
 recommended for newly generated data. Legacy root-level H5 datasets without
@@ -166,13 +149,13 @@ alignment cannot be proven automatically. Existing relative HDF5 external
 links are supported, but linked files must move together. Newly prepared
 CisLens supervision is self-contained.
 
-## 4. Prepare inputs, if they are not already available
+## 4. Data preparation
 
-**To reproduce an existing experiment, reuse its exact BED, embeddings, and
-labels.** Regenerating windows or changing missing-data processing changes the
-experiment. In particular, the historical human preparation interpolated ChIP
-gaps and stored float16; the new optional builder uses exact covered-base means
-and NaN masking in float32. These are not interchangeable preprocessing recipes.
+Reproduction requires the original BED, embeddings and labels. The archived
+human-data workflow interpolated gaps in ChIP coverage and stored labels in
+float16. The preparation command below uses exact covered-base means, NaN
+masking and float32 storage. Use the original input files for analyses based
+on the archived workflow.
 
 ### 4.1 Reference genome and BED
 
@@ -215,21 +198,19 @@ Lower `--inner-batch` on memory errors; extraction time depends on hardware.
 
 ### 4.3 Accessibility bigWigs
 
-Prepare the normalized **per-base accessibility signal** outside this package.
-Use the same normalization and binning throughout a study. The source workflows
-used CPM-normalized ATAC/DNase bigWigs; scATAC was aggregated to pseudobulk before
-input. The model reads supplied values as-is, fills nonfinite input values with
-zero, and does not apply an additional input log transform or CPM normalization.
-Keep the upstream preprocessing command, tool version, and raw-data accessions.
-ChIP is a target, not an additional input. RNA and per-cell expression inputs
-are not accepted by this release.
+Supply normalized per-base accessibility signals as bigWig files. The study
+workflows used counts-per-million normalization for ATAC-seq and DNase-seq and
+aggregated single-cell ATAC-seq to pseudobulk. The model uses the supplied signal
+scale and replaces nonfinite input values with zero. Record the source data
+accessions, preprocessing commands, software versions and normalization
+settings. ChIP tracks provide supervision during training.
 
 ### 4.4 ChIP and Hi-C supervision
 
-Edit `examples/targets.tsv` for one cell. Paths resolve relative to the TSV;
-rows identify canonical ChIP target names. Omit unavailable targets or use an
-empty path to keep their channels masked. A specified nonexistent file is an
-error, rather than silently being treated as missing.
+Edit `examples/targets.tsv` for the cell of interest. The rows identify
+canonical ChIP targets, and paths resolve relative to the TSV. Omit unavailable
+targets or leave their paths empty to mask their channels. Each specified path
+must reference an existing file.
 
 ```bash
 cislens prepare --bed data/sequences.bed --targets examples/targets.tsv \
@@ -241,22 +222,22 @@ Input Hi-C must have a 10 kb grid. For mcool, specify its group explicitly:
 `--hic 'data/source_hic/IMR90.mcool::/resolutions/10000'`.
 The builder does not convert pairs, calculate ICE, or calculate OE. `--balance`
 only applies existing weight values. For an already normalized OE cool, use
-`--hic-type oe` without `--balance`; files are named `*_data_oe.h5` and training
-must also use `hic_type = "oe"`. Omitting `--hic` keeps Hi-C labels missing and
-allows ChIP-only supervision. Keep input assemblies consistent yourself.
+`--hic-type oe` and leave `--balance` unset. The resulting files are named
+`*_data_oe.h5` and require `hic_type = "oe"` at training time. Omit `--hic` for
+ChIP-only supervision. The source files and BED must use the same genome assembly.
 
 ChIP uses exact means over recorded bases of each 2,048 bp bin, without gap
 interpolation, clipping, or missing-to-zero conversion. Hi-C starts at
 `floor(BED_start / 10000)` and extracts 209 bins. All-source positive contacts,
 including long-range and trans contacts, determine covered bins. Uncovered bins
-and invalid weights are masked; valid sparse zeros are retained. This is a
-local prediction task, not a whole-genome contact reconstruction.
+and invalid weights are masked. Valid sparse zeros are retained. Each target
+matrix describes contacts within a local genomic window.
 
 Repeat preparation for each cell using the same BED. Place that cell's ATAC or
 DNase bigWigs under its selected signal directory. Existing outputs are refused
 unless the specific preparation command receives `--overwrite`.
 
-## 5. Train
+## 5. Training
 
 Edit an example TOML. All config paths resolve relative to the **config file**;
 explicit CLI path overrides resolve relative to the working directory.
@@ -266,28 +247,23 @@ cislens check --config examples/train_atac.toml
 CUDA_VISIBLE_DEVICES=0 cislens train --config examples/train_atac.toml
 ```
 
-For DNase:
+The DNase-seq workflow uses its corresponding configuration.
 
 ```bash
 cislens check --config examples/train_dnase.toml
 CUDA_VISIBLE_DEVICES=0 cislens train --config examples/train_dnase.toml
 ```
 
-`check` validates BED, H5 shapes, coordinates, known channel orders, signal
-headers, and mixed-cell batching without training or creating run outputs.
-It does not scan every label/embedding value; finite/nonnegative checks also
-run when each window is loaded. Use it before scheduling a large run.
+`check` validates BED intervals, HDF5 shapes, available coordinate and channel
+metadata, signal headers, and mixed-cell batching. Device initialization,
+checkpoint loading and value-level checks occur during training.
 
-The example batch sizes are the minimum allowing one window per cell in a
-mixed batch (3 for the ATAC example, 2 for DNase). These are portable examples,
-**not claimed manuscript settings**. Historical launchers used batch=36,
-lr=0.0002, epochs=80, seed=1401 and multiple visible GPUs. Reproducing such a run
-requires its original effective batch size, device arrangement, data, and
-configuration; this release uses one explicitly selected device, without
-automatic DataParallel or DDP. Full production GPU memory/runtime has not been
-benchmarked here. Reduce cells/batch or provision sufficient memory deliberately.
+The example configurations allocate at least one window per cell in each mixed
+batch. Reproduction of an archived experiment requires its recorded input data,
+configuration, effective batch size and device arrangement. CisLens training
+uses a single selected device.
 
-Important settings:
+### Training options
 
 | Setting | Meaning |
 | --- | --- |
@@ -303,10 +279,10 @@ Important settings:
 | `hash_inputs` | Stream SHA-256 over every input; recommended for published runs |
 | `pretrained` | Strict initialization from a compatible checkpoint; optional |
 
-For mixed cells, every batch includes every cell. With `concat`, epoch length
-is the minimum of `floor(N_cell / quota_cell)` and unused excess samples are
-discarded for that epoch. This does **not** mean every concatenated sample is
-seen. `fixed` uses `floor(min(N_cell) / batch_size)` batches. Samples and batch
+For mixed cells, every batch includes every cell. With `concat`, the number of
+batches per epoch is the minimum of `floor(N_cell / quota_cell)` across cells.
+Samples exceeding the corresponding per-cell allocation are omitted for that
+epoch. `fixed` uses `floor(min(N_cell) / batch_size)` batches. Samples and batch
 order change deterministically with epoch. When using pseudobulk subdirectories
 named 50/200/500/800/1000/1500/2000, signal sampling first chooses a supported
 cell count uniformly, then a file within that group. Ungrouped files are ignored
@@ -320,17 +296,15 @@ loss = MSE(Hi-C prediction, transformed Hi-C labels)
        + 0.01 * PoissonNLL(ChIP prediction, ChIP labels; log_input=False)
 ```
 
-**Label transforms are preserved:** resize local Hi-C to 256×256, then use
+Local Hi-C maps are resized to 256×256 before applying
 `ln(x + 2)` for raw labels or `log2(1 + x)` for OE. Missing-aware resizing keeps
-pixels masked unless their interpolation support is fully observed. Predictions
-are written in this training space; Hi-C outputs are not raw contact counts and
-are not automatically inverse-transformed. The ChIP head uses Softplus, while
-the Hi-C decoder is linear and can produce negative values.
+pixels masked unless their interpolation support is fully observed. Hi-C
+predictions are stored in the transformed training space. The ChIP head uses
+Softplus. The linear Hi-C decoder can produce negative values.
 
-The historical Hi-C grid covers 209×10,000 bp from the floored start, whereas
-the sequence BED window is 2,097,152 bp. The 256×256 image is a resized target
-grid, not evidence of a new native experimental resolution. This convention is
-retained for checkpoint compatibility.
+The native Hi-C grid comprises 209 bins at 10 kb resolution, beginning at the
+bin containing the BED start. The sequence window spans 2,097,152 bp. The
+256×256 prediction grid is defined by resizing the native Hi-C grid.
 
 Early stopping monitors validation Hi-C MSE, falling back to ChIP loss when
 validation Hi-C is entirely missing. Patience defaults to 20. Metrics are
@@ -342,10 +316,10 @@ and `run.json`. The checkpoint contains architecture, channel names when known,
 signal/Hi-C types, optimizer state, epoch, and training configuration. The run
 record includes environment and input file metadata; BED and pretrained weight
 hashes are always recorded, and `hash_inputs=true` hashes large inputs too.
-`pretrained` initializes model weights only; exact mid-run optimizer/RNG resume
-is not implemented. Do not describe initialization as resuming an experiment.
+`pretrained` initializes model parameters for a new run. Optimizer and random
+number generator states are initialized separately.
 
-## 6. Infer
+## 6. Inference
 
 Inference requires only a compatible checkpoint, one signal bigWig, the original
 split-labelled BED, and matching DNA embeddings. ChIP/Hi-C labels are unnecessary.
@@ -365,7 +339,7 @@ is float32; `--dtype float16` is optional and rejects overflow. Inference does
 not use AMP. Output files are published only after successful completion, and
 existing predictions require explicit `--overwrite` to replace.
 
-Default output datasets:
+The output HDF5 contains the following datasets.
 
 ```text
 pred_epi            [N,1024,15]
@@ -376,35 +350,21 @@ split_local_index   [N]
 target_names        [15] when present in the checkpoint
 ```
 
-The H5 also records checkpoint/BED hashes, environment, input signal, and model
-metadata. No loops, figures, `.cool` export, or analysis steps run automatically.
+The HDF5 output also records checkpoint and BED hashes, the software
+environment, the input signal and model metadata.
 
-Legacy full-input ChromEPI `model_state_dict` checkpoints with the default
-architecture are accepted, including `module.` prefixes. Missing metadata
-cannot be inferred reliably. Ablation and depth-conditioned experimental weights
-are explicitly outside this release. Loading is strict; incompatible shapes
-are not silently skipped. Checkpoints are loaded using PyTorch's restricted
-`weights_only=True` reader; do not disable this globally to suppress an error.
+The loader accepts legacy full-input ChromEPI `model_state_dict` checkpoints
+for the default architecture, including keys prefixed with `module.`.
+Parameter loading requires matching tensor names and shapes and uses PyTorch's
+restricted `weights_only=True` reader. Keep the associated input and target
+manifests when using legacy checkpoints.
 
-## 7. Reproducibility and agent use
+## 7. Reproducibility
 
-For a paper, archive the exact BED order, input processing recipe, file hashes,
-checkpoint hash, config, `run.json`, metrics, software environment, GPU model,
-driver/CUDA versions, batch size, and train/validation/test assignments.
-Use immutable data/weight download records and a release tag. Full guidance is
-in [reproducibility](docs/reproducibility.md).
-
-Seeds, deterministic cuDNN selection, and disabled TF32 reduce variability.
-CPU smoke runs verify repeated parameter equality in the tested environment.
-They do not establish bitwise identity across different devices, library
-versions, batch sizes, or distributed strategies. `strict_determinism=true`
-can reject CUDA operations with no deterministic implementation, consistent
-with the [PyTorch determinism documentation](https://docs.pytorch.org/docs/main/generated/torch.use_deterministic_algorithms.html).
-
-For Codex and other coding agents, start with [AGENTS.md](AGENTS.md): install in
-an isolated environment, run smoke/tests, inspect config, run `check`, then train
-or infer with a new output path. Never fix schema mismatches by disabling
-validation, shuffling files independently, or inventing missing observations.
+Archive the exact BED and split assignments, input preparation settings, file
+and checkpoint hashes, configuration, `run.json`, metrics and software and
+hardware versions. Record the repository revision with each experiment. See
+[reproducibility](docs/reproducibility.md) for the complete experiment record.
 
 ## 8. Repository and licensing
 
@@ -413,14 +373,13 @@ src/cislens/       installable runtime, CLI, data preparation and model
 tests/             synthetic numerical, I/O and workflow regression tests
 examples/          explicit ATAC/DNase TOML configurations and target manifest
 requirements/      reference dependency constraints
-docs/              audit, data/reproduction notes and validation evidence
-.github/workflows/ CPU CI template
-LICENSES/          retained third-party license text
+docs/              software availability, reproducibility and validation
+.github/workflows/ continuous integration
+LICENSES/          third-party license terms
 ```
 
-Original CisLens author/license/citation information is pending. No general
-open-source license has been chosen on the authors' behalf. The SEI-derived
-encoder retains its upstream academic/research-use license in
-[LICENSES/SEI.txt](LICENSES/SEI.txt); see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
-Complete [the publication metadata](docs/publication.md) before sharing the
-repository as an officially released manuscript implementation.
+Model compatibility and implementation provenance are documented in
+[source provenance](docs/source_audit.md). The SEI-derived encoder retains
+its upstream academic and research-use terms. See
+[the SEI license](LICENSES/SEI.txt) and
+[third-party notices](THIRD_PARTY_NOTICES.md).

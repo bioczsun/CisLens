@@ -1,41 +1,43 @@
-# Working on CisLens
+# Development guidelines
 
-This is a research implementation for ATAC/DNase training and inference.
-Read README.md and docs/reproducibility.md before changing scientific behavior.
+Review [the README](README.md) and
+[reproducibility documentation](docs/reproducibility.md) before modifying the
+model, data preparation or training workflow.
 
 ## Setup and checks
 
-- Use Python 3.11 in an isolated environment and the reference constraints.
-- Install the project; do not add src to sys.path in library code.
+- Use Python 3.11 in an isolated environment with the reference constraints.
+- Install CisLens as a package and use its installed import paths.
 - Run `python -m pytest -q` and `cislens smoke --output-dir <new-directory>`.
 - Run `cislens check --config <config.toml>` before a real training job.
-- For changes to installation, build a wheel and test it outside the checkout.
-- Keep CPU tests independent of internet access, pretrained weights and real data.
+- Verify installation changes by testing the built wheel outside the checkout.
+- Use synthetic inputs for CPU tests so they can run offline.
 
 ## Scientific invariants
 
 - Retain full-input model parameter names for existing state-dict checkpoints.
-- ATAC and DNase are the only supported input assays. Do not restore RNA,
-  input ablations, depth experiments or downstream analyses without user intent.
+- The supported input assays are ATAC-seq and DNase-seq. Keep changes to
+  other workflows within the scope requested by the user.
 - Default geometry: 2,097,152 bp, 1,024 SEI bins, 960 embedding channels,
   15 ChIP targets, and a 256×256 predicted Hi-C window.
-- Raw Hi-C labels use ln(x+2), not ln(x+1). OE uses log2(1+x).
-- Never independently reorder BED, embeddings, supervision or target channels.
+- Transform raw Hi-C labels with ln(x+2) and OE labels with log2(1+x).
+- Keep BED rows, embeddings, supervision and target channels aligned.
 - Missing labels remain NaN; recorded zeros remain observed.
 - Preserve per-window loss normalization and the 0.01 ChIP loss weight.
-- Do not silently ignore checkpoint shape/channel mismatches or reduce split
-  validation to make an invalid dataset run.
+- Preserve strict checkpoint validation and validation of the data splits.
 
-## Experiment discipline
+## Experiment provenance and execution
 
-- Use explicit paths in TOML; they resolve relative to the config file.
-- Real datasets/checkpoints are external inputs. Do not fetch large assets,
-  launch production GPU jobs, delete data, or publish results without an
-  applicable user instruction. Routine synthetic tests require no confirmation.
-- Keep runs and predictions in new output paths. Preparation/inference only
-  overwrite with an explicit user-selected option.
-- Record configuration and provenance. Do not claim a test reproduces a
-  manuscript result without its released datasets, weights and settings.
-- A reduced CPU smoke model is a software test, not a benchmark.
-- Describe the exact tests run and any GPU/installation checks not performed.
-- Do not invent a DOI, accession, license, author list, or trained model URL.
+- Specify input paths in TOML relative to the configuration file or as
+  absolute paths.
+- Download large assets, run production GPU jobs, delete data, or publish
+  results only with specific authorization. Routine synthetic tests may run
+  offline without additional approval.
+- Write runs and predictions to new output paths. Overwriting preparation
+  and inference outputs requires an explicit option.
+- Record the configuration, inputs and validation scope. Manuscript
+  reproduction requires the corresponding datasets, weights and settings.
+- Report the tests performed and the environment used. Record synthetic tests
+  separately from performance and accuracy benchmarks.
+- Verify citations, accessions, license terms, authorship and download links
+  against authoritative records before inclusion.

@@ -1,19 +1,25 @@
-# Metadata and assets required before the manuscript release
+# Software and data availability
 
-The code can be installed and tested using synthetic inputs. The following
-author-controlled information is intentionally not fabricated:
+This repository contains the CisLens implementation, example configurations,
+and a synthetic workflow for verifying installation, training and inference.
+See the [README](../README.md) and [validation record](validation.md).
 
-- Manuscript title, author list, DOI and final software citation/CITATION.cff.
-- Repository URL, release tag and durable archival identifier.
-- License for original CisLens contributions. SEI has a separate retained license.
-- Public CisLens checkpoints with SHA-256, assay, architecture, target order,
-  preprocessing, training split, configuration and validation metrics.
-- Exact BED files, supervision/embedding download records or an immutable manifest
-  with accessions, assembly, checksums, normalization and availability constraints.
-- Complete production configs and GPU validation results for reported figures.
+Reproduction of a study analysis requires the experiment-specific inputs and
+settings. Record the following with the analysis.
 
-Do not advertise this unfilled metadata as a published open-source license,
-available model download or reproduced manuscript result. After choosing the
-author license, add the actual LICENSE and valid CITATION.cff; preserve SEI's
-notice and terms separately. No git remote or hosting publication is performed
-by this restructuring work.
+- The repository revision and software environment.
+- The source dataset accessions, reference assembly, original BED and split
+  assignments, and the parameters used to generate the input bigWigs,
+  supervision and SEI embeddings.
+- The CisLens and SEI checkpoints, their SHA-256 checksums and the corresponding
+  model configuration, input assay, target order and preprocessing conventions.
+- The training or inference configuration, software and hardware versions,
+  input checksums, and the analysis scripts used to generate reported results.
+
+The study's Data Availability statement identifies the source datasets and
+their access conditions. See the [reproducibility record](reproducibility.md)
+for preparation and compatibility details. Cite the CisLens manuscript and
+specify the repository revision used for the analysis.
+
+The terms applicable to the SEI-derived encoder are documented in the
+[third-party notices](../THIRD_PARTY_NOTICES.md).
